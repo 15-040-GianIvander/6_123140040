@@ -1,4 +1,4 @@
-# 📰 NewsReaderApp - Berita Balapan (Tugas 2)
+# 📰 NewsReaderApp - Berita Balapan
 
 Aplikasi pembaca berita modern berbasis Android yang dibangun menggunakan **Jetpack Compose**. Proyek ini difokuskan pada penyampaian berita balapan (F1 & MotoGP) dengan antarmuka yang bersih, interaktif, dan performa yang optimal.
 
@@ -35,7 +35,7 @@ Berikut adalah tampilan aplikasi dalam berbagai kondisi:
 
 | Halaman Utama (Home) | Detail Berita | Tampilan Browser |
 | :---: | :---: | :---: |
-| ![Home](Screenshot/Home.jpg) | ![Detail](Screenshot/Detail.jpg) | ![Browser](Screenshot/Browser.jpeg) |
+| ![Home](Screenshot/Home.jpeg) | ![Detail](Screenshot/Detail.jpeg) | ![Browser](Screenshot/Browser.jpeg) |
 
 ## 🎥 Video Demonstrasi 
 https://github.com/user-attachments/assets/e4ab596f-f0e0-48d0-8468-05a4cdeb3996

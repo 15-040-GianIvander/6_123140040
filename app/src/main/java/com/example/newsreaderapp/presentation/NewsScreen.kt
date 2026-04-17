@@ -27,37 +27,34 @@ fun NewsScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = {
-                    Column {
-                        Text(
-                            "Berita Indonesia",
-                            style = MaterialTheme.typography.titleLarge.copy(
-                                fontWeight = FontWeight.Black,
-                                fontSize = 24.sp
-                            )
-                        )
-                        Text(
-                            "Update terbaru hari ini",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.secondary
-                        )
-                    }
+                    Text(
+                        "Berita Hari Ini",
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Black,
+                            fontSize = 22.sp,
+                            letterSpacing = 0.5.sp
+                        ),
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.primary
+                ),
+                scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
+            ExtendedFloatingActionButton(
                 onClick = onRefresh,
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Icon(Icons.Default.Refresh, contentDescription = "Refresh")
-            }
+                shape = MaterialTheme.shapes.large,
+                icon = { Icon(Icons.Default.Refresh, contentDescription = null) },
+                text = { Text("Segarkan") }
+            )
         }
     ) { padding ->
         Box(
@@ -66,18 +63,17 @@ fun NewsScreen(
                 .padding(padding)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            // Tampilkan Shimmer saat Loading dan belum ada data
             if (state.isLoading && state.articles.isEmpty()) {
-                LazyColumn {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(5) {
                         ShimmerListItem()
                     }
                 }
             } else {
-                // Tampilkan List Berita
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(bottom = 80.dp)
+                    contentPadding = PaddingValues(top = 8.dp, bottom = 80.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(state.articles) { article ->
                         ArticleItem(
@@ -88,7 +84,6 @@ fun NewsScreen(
                 }
             }
 
-            // Tampilkan Error
             if (state.error.isNotBlank() && state.articles.isEmpty()) {
                 Column(
                     modifier = Modifier.align(Alignment.Center).padding(16.dp),

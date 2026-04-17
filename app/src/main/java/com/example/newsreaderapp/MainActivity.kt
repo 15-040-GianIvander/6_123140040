@@ -4,6 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,24 +34,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Manual Dependency Injection
         val db = Room.databaseBuilder(
             applicationContext,
             NewsDatabase::class.java,
             "news_db"
         )
-        .fallbackToDestructiveMigration() // Tambahkan ini biar nggak force close pas ganti struktur DB
+        .fallbackToDestructiveMigration()
         .build()
 
         val client = HttpClient(Android) {
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                })
+                json(Json { ignoreUnknownKeys = true })
             }
-            install(Logging) {
-                level = LogLevel.INFO
-            }
+            install(Logging) { level = LogLevel.INFO }
         }
 
         val repository = NewsRepositoryImpl(client, db.dao)
@@ -55,36 +54,42 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NewsReaderAppTheme {
-                val navController = rememberNavController()
-                
-                NavHost(navController = navController, startDestination = "news_list") {
-                    composable("news_list") {
-                        val viewModel: NewsViewModel = viewModel(
-                            factory = object : ViewModelProvider.Factory {
-                                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                                    @Suppress("UNCHECKED_CAST")
-                                    return NewsViewModel(repository) as T
+                // Surface untuk memastikan background putih sesuai tema
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    val navController = rememberNavController()
+
+                    NavHost(navController = navController, startDestination = "news_list") {
+                        composable("news_list") {
+                            val viewModel: NewsViewModel = viewModel(
+                                factory = object : ViewModelProvider.Factory {
+                                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                                        @Suppress("UNCHECKED_CAST")
+                                        return NewsViewModel(repository) as T
+                                    }
                                 }
-                            }
-                        )
-                        NewsScreen(
-                            state = viewModel.state.value,
-                            onRefresh = { viewModel.getArticles() },
-                            onArticleClick = { article ->
-                                navController.navigate("article_detail/${article.id}")
-                            }
-                        )
-                    }
-                    composable(
-                        route = "article_detail/{articleId}",
-                        arguments = listOf(navArgument("articleId") { type = NavType.IntType })
-                    ) { backStackEntry ->
-                        val articleId = backStackEntry.arguments?.getInt("articleId") ?: -1
-                        ArticleDetailScreen(
-                            articleId = articleId,
-                            repository = repository,
-                            onBackClick = { navController.popBackStack() }
-                        )
+                            )
+                            NewsScreen(
+                                state = viewModel.state.value,
+                                onRefresh = { viewModel.getArticles() },
+                                onArticleClick = { article ->
+                                    navController.navigate("article_detail/${article.id}")
+                                }
+                            )
+                        }
+                        composable(
+                            route = "article_detail/{articleId}",
+                            arguments = listOf(navArgument("articleId") { type = NavType.IntType })
+                        ) { backStackEntry ->
+                            val articleId = backStackEntry.arguments?.getInt("articleId") ?: -1
+                            ArticleDetailScreen(
+                                articleId = articleId,
+                                repository = repository,
+                                onBackClick = { navController.popBackStack() }
+                            )
+                        }
                     }
                 }
             }

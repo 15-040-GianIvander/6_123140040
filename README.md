@@ -1,41 +1,43 @@
-# 📰 NewsReaderApp - Berita Indonesia
+# 📰 NewsReaderApp - Berita Balapan (Tugas 2)
 
-NewsReaderApp adalah aplikasi pembaca berita modern berbasis Android yang dibangun menggunakan **Jetpack Compose**. Aplikasi ini dirancang dengan antarmuka yang bersih, mendukung mode gelap, dan memiliki fitur *offline caching* yang handal.
+Aplikasi pembaca berita modern berbasis Android yang dibangun menggunakan **Jetpack Compose**. Proyek ini difokuskan pada penyampaian berita balapan (F1 & MotoGP) dengan antarmuka yang bersih, interaktif, dan performa yang optimal.
+
+# 👤 Identitas Pengembang
+- **Nama:** Gian Ivander
+- **NIM:** 123140040
+- **Kelas:** Pengembangan Aplikasi Mobile RA
 
 ## 🚀 Fitur Utama
-- **Modern UI & Dark Mode:** Tampilan estetik dengan palet warna Navy & Charcoal yang nyaman di mata.
-- **Offline Caching (Local Storage):** Berita tetap bisa dibaca meskipun tanpa koneksi internet berkat integrasi Room Database.
-- **Shimmer Effect:** Pengalaman loading yang halus menggunakan *skeleton screen* (Shimmer).
-- **Chrome Custom Tabs:** Membuka artikel asli langsung di dalam aplikasi tanpa harus pindah ke browser eksternal.
-- **Randomized Updates:** Simulasi pembaruan berita setiap kali melakukan *refresh*.
+- **Modern UI & Vibrant Blue Theme**: Tampilan bersih dengan latar belakang putih dan aksen biru yang memberikan kesan profesional dan segar.
+- **Center-Aligned Title**: Navigasi atas yang seimbang dengan judul berada tepat di tengah.
+- **Interactive Racing Cards**: Berita ditampilkan dalam bentuk kartu modern dengan gambar aksi balap, efek bayangan, dan indikator "Baca Selengkapnya".
+- **Offline Caching**: Berita tetap bisa dibaca meskipun tanpa koneksi internet berkat integrasi Room Database (Local Storage).
+- **Shimmer Effect**: Pengalaman pemuatan data yang halus menggunakan *skeleton screen* (Shimmer).
+- **Chrome Custom Tabs**: Membuka artikel asli langsung di dalam aplikasi untuk pengalaman browsing yang mulus.
+
+## 🏗️ Struktur Proyek
+Sesuai dengan prinsip **Clean Architecture** dan pola **MVVM**, proyek ini dibagi menjadi:
+- `data/`: Implementasi Repository, Room Database, DAO, dan Entities.
+- `domain/`: Berisi Model data (`Article`) dan abstraksi Repository.
+- `presentation/`: Berisi UI Screen (`NewsScreen`, `ArticleDetailScreen`), Komponen, dan `NewsViewModel`.
+- `ui/theme/`: Pengaturan tema Material 3 (Color, Type, Theme).
 
 ## 🛠️ Tech Stack
-- **Jetpack Compose (Material 3):** Toolkit modern untuk membangun UI deklaratif.
-- **Ktor Client:** Digunakan untuk menangani permintaan jaringan (Networking).
-- **Room Persistence:** Database lokal untuk penyimpanan berita (Offline Caching).
-- **Coil:** Library pemuat gambar yang cepat dan efisien.
-- **Compose Navigation:** Navigasi antar layar yang mulus.
-- **MVVM Architecture:** Pola desain untuk kode yang rapi dan mudah dikelola.
+- **Jetpack Compose** (Material 3)
+- **Ktor Client** (Networking)
+- **Room Persistence** (Local Database)
+- **Coil** (Image Loading)
+- **Compose Navigation**
+- **MVVM Architecture**
 
-## 🎥 Video Demonstrasi 
-https://github.com/user-attachments/assets/e4ab596f-f0e0-48d0-8468-05a4cdeb3996
-
-## 📸 Screenshots
-Berikut adalah tampilan aplikasi dalam berbagai state:
+## 📸 Preview
+Berikut adalah tampilan aplikasi dalam berbagai kondisi:
 
 | Halaman Utama (Home) | Detail Berita | Tampilan Browser |
 | :---: | :---: | :---: |
 | ![Home](Screenshot/Home.jpg) | ![Detail](Screenshot/Detail.jpg) | ![Browser](Screenshot/Browser.jpeg) |
 
-## 🔌 API & Data
-Aplikasi saat ini mengimplementasikan **Repository Pattern** dengan strategi *Local-First*:
-1. **Local:** Data pertama kali dimuat dari Room Database.
-2. **Mock Remote:** Aplikasi mensimulasikan pengambilan data dari API berita Indonesia melalui `NewsRepositoryImpl` dengan kumpulan data yang dinamis.
-3. **Synchronization:** Setiap data baru yang didapat otomatis disimpan ke dalam cache lokal untuk akses offline di kemudian hari.
+## 🎥 Video Demonstrasi 
+https://github.com/user-attachments/assets/e4ab596f-f0e0-48d0-8468-05a4cdeb3996
 
 ---
-
-## 👤 Identitas Pengembang
-- **Nama:** Nahli Saud Ramdani
-- **NIM:** 123140049
-

@@ -38,6 +38,4 @@ Berikut adalah tampilan aplikasi dalam berbagai kondisi:
 | ![Home](Screenshot/Home.jpeg) | ![Detail](Screenshot/Detail.jpeg) | ![Browser](Screenshot/Browser.jpeg) |
 
 ## 🎥 Video Demonstrasi 
-https://github.com/user-attachments/assets/e4ab596f-f0e0-48d0-8468-05a4cdeb3996
-
----
+https://github.com/user-attachments/assets/9be69628-0a99-48c1-acc1-2f00b42123cf
